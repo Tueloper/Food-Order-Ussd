@@ -1,7 +1,7 @@
 {
-  "name": "whoisinjail-backend",
+  "name": "personal-resolver-ussd-backend",
   "version": "1.0.0",
-  "description": "This is a public directory for Nigerian Prisons",
+  "description": "This is a test directory for ussd paystack resolver",
   "main": "index.js",
   "scripts": {
     "lint": "eslint",
@@ -22,12 +22,12 @@
     "url": "git+https://github.com/pseudogarden/whoisinjail-backend.git"
   },
   "keywords": [
-    "whoisinjail",
+    "ussd",
     "Backend",
-    "Nigerian",
-    "Prison"
+    "paystack",
+    "resolver"
   ],
-  "author": "whoisinjail team",
+  "author": "Tochukwu Ozurumba",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pseudogarden/whoisinjail-backend/issues"
@@ -35,29 +35,20 @@
   "homepage": "https://github.com/pseudogarden/whoisinjail-backend#readme",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "@hapi/joi": "^15.1.1",
-    "@sendgrid/mail": "^6.4.0",
-    "@types/hapi__joi": "^15.0.3",
-    "bcryptjs": "^2.4.3",
-    "chai": "^4.2.0",
-    "cloudinary": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.4",
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.1",
     "errorhandler": "^1.5.0",
-    "exceljs": "^4.1.1",
     "express": "^4.17.1",
-    "express-jwt": "^5.3.1",
+    "express-jwt": "^6.0.0",
     "express-session": "^1.15.6",
-    "joi-password-complexity": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
     "method-override": "^2.3.10",
     "methods": "^1.1.2",
-    "moment": "^2.27.0",
     "morgan": "^1.9.1",
-    "multer": "^1.4.2",
+    "mysql2": "^2.2.5",
     "paystack": "^2.0.1",
     "paystack-node": "^0.2.4",
     "pg": "^7.12.1",

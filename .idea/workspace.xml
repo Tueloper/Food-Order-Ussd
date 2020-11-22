@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="57ae2bda-9d56-4588-bb60-9c46f3e70ada" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="1kbsc8HcuSfPDcMUleSivDCxJjq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="57ae2bda-9d56-4588-bb60-9c46f3e70ada" name="Default Changelist" comment="" />
+      <created>1605980704865</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605980704865</updated>
+      <workItem from="1605980706203" duration="7853000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="526" y="256" key="#Notifications" timestamp="1605980725257">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="526" y="256" key="#Notifications/0.0.1536.864@0.0.1536.864" timestamp="1605980725257" />
+    <state x="556" y="234" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605983096751">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="556" y="234" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1605983096751" />
+    <state width="1516" height="98" key="GridCell.Tab.0.bottom" timestamp="1606028771939">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1516" height="98" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1606028771939" />
+    <state width="1516" height="98" key="GridCell.Tab.0.center" timestamp="1606028771936">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1516" height="98" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1606028771936" />
+    <state width="1516" height="98" key="GridCell.Tab.0.left" timestamp="1606028771931">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1516" height="98" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1606028771931" />
+    <state width="1516" height="98" key="GridCell.Tab.0.right" timestamp="1606028771937">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1516" height="98" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1606028771937" />
+    <state x="277" y="81" width="983" height="707" key="SettingsEditor" timestamp="1605981397873">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="277" y="81" width="983" height="707" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1605981397873" />
+  </component>
+</project>
