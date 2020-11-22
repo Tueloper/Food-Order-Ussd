@@ -1,8 +1,9 @@
-import { Router } from 'express';
-import userRoutes from './auth';
+import Toolbox from './toolbox';
+import ApiError from './apiError';
+import Payments from './payments';
 
-const router = Router();
-
-router.use('/', userRoutes);
-
-export default router;
+export {
+  Toolbox,
+  ApiError,
+  Payments,
+};

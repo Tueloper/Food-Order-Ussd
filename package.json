@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pseudogarden/whoisinjail-backend.git"
+    "url": "git+https://github.com/Tueloper/USSD-Paystack.git"
   },
   "keywords": [
     "ussd",
@@ -30,9 +30,9 @@
   "author": "Tochukwu Ozurumba",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pseudogarden/whoisinjail-backend/issues"
+    "url": "https://github.com/Tueloper/USSD-Paystack/issues"
   },
-  "homepage": "https://github.com/pseudogarden/whoisinjail-backend#readme",
+  "homepage": "https://github.com/Tueloper/USSD-Paystack#readme",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "cookie-parser": "^1.4.4",
