@@ -2,14 +2,14 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import joi from '@hapi/joi';
+// import bcrypt from 'bcryptjs';
+// import joi from '@hapi/joi';
 import env from '../config/env';
 import ApiError from './apiError';
-import validationData from '../validations/validationData';
+// import validationData from '../validations/validData';
 
 const { SECRET, PORT } = env;
-const { paystackBankNamesAndCodes } = validationData;
+// const { paystackBankNamesAndCodes } = validationData;
 /**
  * function objectfor api tools methods
  *
@@ -63,9 +63,9 @@ const Toolbox = {
    * @returns {string} - Encrypted password.
    * @memberof Toolbox
    */
-  hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  },
+  // hashPassword(password) {
+  //   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  // },
 
   /**
    * Compares a password with a given hash
@@ -75,9 +75,9 @@ const Toolbox = {
    * @returns {boolean} - returns true if there is a match and false otherwise.
    * @memberof Toolbox
    */
-  comparePassword(password, hash) {
-    return bcrypt.compareSync(password, hash);
-  },
+  // comparePassword(password, hash) {
+  //   return bcrypt.compareSync(password, hash);
+  // },
 
   /**
    * Generates a JSON response for success scenarios.
@@ -89,10 +89,7 @@ const Toolbox = {
    * @memberof Toolbox
    */
   successResponse(res, data, code = 200) {
-    return res.status(code).json({
-      status: 'success',
-      data
-    });
+    res.status(code).send(data);
   },
 
   /**
@@ -157,9 +154,9 @@ const Toolbox = {
    * @returns {Promise} Validation result
    * @memberof Toolbox
    */
-  validate(value, schema) {
-    return joi.validate(value, schema, { abortEarly: false, allowUnknown: true });
-  },
+  // validate(value, schema) {
+  //   return joi.validate(value, schema, { abortEarly: false, allowUnknown: true });
+  // },
 
   /**
    * Checks token from request header for user authentication
