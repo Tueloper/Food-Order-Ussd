@@ -6,6 +6,10 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
+    fullName: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
     bank_code: {
       type: Sequelize.STRING,
       allowNull: true
@@ -20,6 +24,10 @@ module.exports = {
     },
     phone: {
       type: Sequelize.STRING,
+      allowNull: true
+    },
+    address: {
+      type: Sequelize.TEXT,
       allowNull: true
     },
     email: {
