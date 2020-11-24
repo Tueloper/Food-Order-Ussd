@@ -2,6 +2,10 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
+      fullName: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       bank_code: {
         type: DataTypes.STRING,
         allowNull: true
@@ -18,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true
       },
+      address: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -26,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  User.associate = () => {};
+  User.associate = (models) => {
+    User.hasMany(models.Order, {
+      as: 'order',
+      foreignKey: 'foodId'
+    });
+  };
   return User;
 };

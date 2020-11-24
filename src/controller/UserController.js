@@ -37,13 +37,13 @@ const UserController = {
         account_number: "",
         email: "",
         phone: "",
+        address: "",
         open: true
       };
       orderDetails = {
         foodName: "",
-        address: "",
         amount: "",
-        phone: "",
+        email: "",
         open: true
       };
       let {
