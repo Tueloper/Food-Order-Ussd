@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  User.associate = () => {};
+  User.associate = (models) => {
+    User.hasMany(models.Order, {
+      as: 'order',
+      foreignKey: 'foodId'
+    });
+  };
   return User;
 };
