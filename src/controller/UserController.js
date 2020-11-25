@@ -2,14 +2,22 @@
 /* eslint-disable no-unused-vars */
 import database from '../models';
 import { Toolbox } from './../util';
+import { GeneralService } from '../services'
 // import { env } from '../config';
+import validData from './../validation/validData'
 
 const {
   successResponse,
   errorResponse
 } = Toolbox;
 const {
-  User
+  findMultipleByKey,
+  findByKey
+} = GeneralService;
+const {
+  User,
+  Food,
+  Order
 } = database;
 
 const UserController = {
@@ -24,7 +32,7 @@ const UserController = {
   async callUssd(req, res) {
     try {
     // Logic for 1 level message
-      let welcomeMsg, personalDetails, orderDetails, message, endMessage;
+      let welcomeMsg, personalDetails, orderDetails, message, endMessage, user;
       welcomeMsg = `CON Hello and welcome to La Turre Restuarante.
         Please if you are a new user ensure to register before making any order.
         Older members can make orders and food will be delivered to you fast and hot!.
@@ -46,30 +54,46 @@ const UserController = {
         email: "",
         open: true
       };
+      const foodList = await findMultipleByKey(Food, {});
       let {
         sessionId, serviceCode, phoneNumber, text
       } = req.body;
-      let textValue = text.split('*').length;
+      let textValue = text.split('*');
+      console.log(text, textValue, personalDetails);
 
 
       if (text === '') {
         message = welcomeMsg
         res.status(200).send(message);
       } else if (text === '1') {
-          message = `END This feature is still loading`;
+        message = `Please Input your email address`;
+      } else if (textValue[0] === '1' && textValue.length === 2) {
+        message = `Please Input your home address`;
+        personalDetails.email = textValue[1];
+        res.status(200).send(message);
+      } else if (textValue[0] === '1' && textValue.length === 3) {
+        message = `Please Input your bank account number`;
+        personalDetails.address = textValue[2];
+        res.status(200).send(message);
+      } else if (textValue[0] === '1' && textValue.length === 4) {
+        message = `Please select your Bank \n
+          ${validData.map((x) =>
+            x.id, x.bank_name
+          )} `;
+        personalDetails.account_number = textValue[3];
           res.status(200).send(message);
-        } else if (text === '2') {
-          message = "CON What do you want to eat?"
-          console.log(text);
+      } else if (text === '2') {
+          message = "CON Please Input your Email"
           res.status(200).send(message);
-        } else if (text === 3) {
-          message = "CON Where do we deliver it?"
-          orderDetails.foodName = text.split('*')[1];
+      } else if (text === '2' && textValue.length === 2) {
+          user = await findByKey(User, { email: textValue[1] });
+          if (!user) message = `END You haven't registered with our platform, please register and try again..`
+          else message = "CON Where do we deliver it?"
           res.status(200).send(message);
         } else if (textValue === 4) {
           message = "CON What's your phone number?, Ensure you use your registered number";
           orderDetails.address = text.split('*')[2];
-          orderDetails.address = text.split('*')[2];
+          // orderDetails.address = text.split('*')[2];
               res.status(200).send(message);
         } else if (textValue === 5) {
           message = `CON Would you like to place this order?
@@ -82,9 +106,7 @@ const UserController = {
             Enjoy your meal in advance`
           orderDetails.telephone = lastData
         }
-
-            console.log(text, orderDetails, textValue);
-      return successResponse(res, { orderDetails });
+      // successResponse(res, { message });
     } catch (error) {
       errorResponse(res, {});
     }
