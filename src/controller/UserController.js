@@ -32,7 +32,7 @@ const UserController = {
   async callUssd(req, res) {
     try {
     // Logic for 1 level message
-      let welcomeMsg, personalDetails, orderDetails, message, endMessage, user;
+      let welcomeMsg, personalDetails, orderDetails, message, endMessage, user, foodName, price;
       welcomeMsg = `CON Hello and welcome to La Turre Restuarante.
         Please if you are a new user ensure to register before making any order.
         Older members can make orders and food will be delivered to you fast and hot!.
@@ -50,17 +50,18 @@ const UserController = {
       };
       orderDetails = {
         foodName: "",
-        amount: "",
+        price: "",
         email: "",
+        quantity: '',
         open: true
       };
-      const foodList = await findMultipleByKey(Food, {});
+      let foodList = await findMultipleByKey(Food, {});
+      foodList = foodList.map((x) => ({ id: x.id, name: x.name, amount: x.amount }));
       let {
         sessionId, serviceCode, phoneNumber, text
       } = req.body;
       let textValue = text.split('*');
-      console.log(text, textValue, personalDetails);
-
+      console.log(text, textValue, orderDetails);
 
       if (text === '') {
         message = welcomeMsg
@@ -85,26 +86,40 @@ const UserController = {
       } else if (text === '2') {
           message = "CON Please Input your Email"
           res.status(200).send(message);
-      } else if (text === '2' && textValue.length === 2) {
-          user = await findByKey(User, { email: textValue[1] });
-          if (!user) message = `END You haven't registered with our platform, please register and try again..`
-          else message = "CON Where do we deliver it?"
+      } else if (textValue[0] === '2' && textValue.length === 2) {
+          // user = await findByKey(User, { email: textValue[1] });
+          // if (!user) message = `END You haven't registered with our platform, please register and try again..`
+           message = `CON Please select your Order
+            1. Scambled Eggs
+            2. Fried Potatoes
+            3. Catalan Sausage
+           `;
+        // message = `CON Where do we deliver it?`;
+        orderDetails.email = textValue[1];
           res.status(200).send(message);
-        } else if (textValue === 4) {
-          message = "CON What's your phone number?, Ensure you use your registered number";
-          orderDetails.address = text.split('*')[2];
-          // orderDetails.address = text.split('*')[2];
-              res.status(200).send(message);
-        } else if (textValue === 5) {
-          message = `CON Would you like to place this order?
+      } else if (textValue[0] === '2' && textValue.length === 3) {
+        const id = Number(textValue[2]) - 1;
+        const food = foodList[id];
+          message = `CON How many orders of ${food.name} do you want`;
+          orderDetails.foodName = food.name;
+        price = food.amount;
+          res.status(200).send(message);
+      } else if (textValue[0] === '2' && textValue.length === 4) {
+        price = Number(price) * Number(textValue[3]);
+        console.log(price);
+        message = `CON Price is $${price}, Would you like to place this order?
             1. Yes
-            2. No`
-          lastData = text.split('*')[3];
-              res.status(200).send(message);
+            2. No`;
+        orderDetails.quantity = textValue[3];
+        orderDetails.price = price;
+        res.status(200).send(message);
+      } else if (textValue[0] === '2' && textValue.length === 5) {
+        if (textValue[4] === '1') {
+          message = `End Your Order has been made and is coming straight to your address`
         } else {
-          message = `END Thanks for your order
-            Enjoy your meal in advance`
-          orderDetails.telephone = lastData
+            message = `END Thanks for using our platform`
+        }
+          res.status(200).send(message);
         }
       // successResponse(res, { message });
     } catch (error) {
