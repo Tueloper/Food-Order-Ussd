@@ -37,13 +37,13 @@ const UserController = {
   async callUssd(req, res) {
     try {
     // Logic for 1 level message
-      let welcomeMsg, 
-      personalDetails, 
-      message, 
-      endMessage, 
-      user, 
-      foodName, 
-      price, 
+      let welcomeMsg,
+      personalDetails,
+      message,
+      endMessage,
+      user,
+      foodName,
+      price,
       food,
       bank,
       bank_name
@@ -66,7 +66,7 @@ const UserController = {
         open: true
       };
       const orderDetails = {};
-      // If this is not still showing, we can try using (req.orderDetails or req.body) 
+      // If this is not still showing, we can try using (req.orderDetails or req.body)
       // to store order details of users information till the session has ended
 
       // list of food in the database
@@ -90,7 +90,7 @@ const UserController = {
         res.status(200).send(message);
 
       } else if (textValue[0] === '1' && textValue.length === 2) {
-        
+
         personalDetails.email = textValue[1];
         user = await findByKey(User, { email: textValue[1] });
         if (user) message = `END User ${user.fullName} have registered with our platform, Please proceed to make your order.`;
@@ -149,7 +149,7 @@ const UserController = {
       } else if (textValue[0] === '1' && textValue.length === 5) {
 
         const id = Number(textValue[4] - 1);
-        bank = validate[id];
+        bank = validData[id];
         personalDetails.bank_name = bank.bank_name;
         personalDetails.bank_code = bank.bank_code;
         const bankProfile = await verifyAccount({ account_number: personalDetails.account_number, bank_code: bank.bank_code });
@@ -164,7 +164,7 @@ const UserController = {
           }
 
           const user = await addEntity(User, userProfile);
-          message = `END User ${bankProfile.fullName} is Registered with La Turre Restuarante..`
+          if (user) message = `END User ${bankProfile.fullName} is Registered with La Turre Restuarante..`
         } else message = `END Error in confirming bank account details, Please check your network and try again later.`;
         res.status(200).send(message);
 
@@ -221,7 +221,7 @@ const UserController = {
 
           // remember to add paystact to this operarion.
           // const pay = await viaPaystack({ email: user.email, amount: body.amount, metadata: 'NGN' });
-          message = `End Your Order has been made and is coming straight to your address`;
+          if (order) message = `End Your Order has been made and is coming straight to your address`;
         } else message = `END Thanks for using our platform`;
         res.status(200).send(message);
 
