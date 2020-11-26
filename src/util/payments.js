@@ -53,6 +53,27 @@ const Payments = {
       return error;
     }
   },
+
+  /**
+   * verify phone through truecaller
+   * @param {object} payload - object
+   * @returns {object} - Returns an object with account details
+   * @memberof Payments
+   */
+  async verifyAccount(payload) {
+    let stackBody;
+    // eslint-disable-next-line camelcase
+    const { account_number, bank_code } = payload;
+    try {
+      await paystack.resolveAccountNumber({ account_number, bank_code })
+        .then((body) => {
+          stackBody = body.body.data;
+        });
+      return stackBody;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 export default Payments;
