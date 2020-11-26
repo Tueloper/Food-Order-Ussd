@@ -169,26 +169,46 @@ const UserController = {
             1. Scambled Eggs
             2. Fried Potatoes
             3. Catalan Sausage
+            4. Pasta
+            5. Mussels
+            6. Bacon
+            7. Toast Coffee
+            8. Shrimps
+            9. Sandwich
+            10. Paella
+            11. Hamburgers
+            12. Shawarma
+            13. Rice
+            14. Green Salad
+            15. Cheesecake
+            16. Baguette
+            17. Cappuccino
+            18. Smoothies
+            19. Potato Pie
+            20. Fresh Squeezed Juice
+            21. Steak
             `;
         }
 
-        orderDetails.email = textValue[1];
+        // orderDetails.email = textValue[1];
         res.status(200).send(message);
 
       } else if (textValue[0] === '2' && textValue.length === 3) {
-
         const id = Number(textValue[2]) - 1;
-        food = foodList[id];
-        orderDetails.foodName = food.name;
-        price = food.amount;
-        message = `CON How many orders of ${food.name} do you want`;
+        if (id > foodList.length) {
+          textValue.pop();
+        } else {
+          food = foodList[id];
+          orderDetails.food = food;
+          message = `CON How many orders of ${food.name} do you want`;
+        }
         res.status(200).send(message);
 
       } else if (textValue[0] === '2' && textValue.length === 4) {
 
-        price = price * textValue[3];
-        orderDetails.quantity = textValue[3];
-        orderDetails.price = price;
+        const id = Number(textValue[2]) - 1;
+        food = foodList[id];
+        price = food.amount * textValue[3];
         console.log(price);
         message = `CON Price is $${price}, Would you like to place this order?
             1. Yes
@@ -198,19 +218,23 @@ const UserController = {
       } else if (textValue[0] === '2' && textValue.length === 5) {
 
         if (textValue[4] === '1') {
-
+          const id = Number(textValue[2]) - 1;
+          food = foodList[id];
+          price = food.amount * textValue[3];
+          user = await findByKey(User, { email: textValue[1] });
           const body = {
             foodId: food.id,
             userId: user.id,
-            quantity: orderDetails.quantity,
-            price: orderDetails.price,
+            quantity: textValue[3],
+            price,
           };
           const order = await addEntity(Order, body);
 
           // remember to add paystact to this operarion.
           // const pay = await viaPaystack({ email: user.email, amount: body.amount, metadata: 'NGN' });
-          if (order) message = `End Your Order has been made and is coming straight to your address`;
-        } else message = `END Thanks for using our platform`;
+          if (order) message = `END Your Order has been made and is coming straight to your address`;
+          else message = `END Network Issue. Please check your network and try again`
+        } else message = `END Your Order has been cancelled!!.`;
         res.status(200).send(message);
 
       } else {
