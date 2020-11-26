@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
 import database from '../models';
-import { Toolbox } from './../util';
+import { Toolbox, Payments } from './../util';
 import { GeneralService } from '../services'
 // import { env } from '../config';
 import validData from './../validation/validData'
@@ -15,6 +15,10 @@ const {
   findByKey,
   addEntity
 } = GeneralService;
+const {
+  verifyAccount,
+  viaPaystack
+} = Payments;
 const {
   User,
   Food,
@@ -148,8 +152,20 @@ const UserController = {
         bank = validate[id];
         personalDetails.bank_name = bank.bank_name;
         personalDetails.bank_code = bank.bank_code;
+        const bankProfile = await verifyAccount({ account_number: personalDetails.account_number, bank_code: bank.bank_code });
+        if (bankProfile) {
+          const userProfile = {
+            full_name: bankProfile.account_name,
+            bank_code: bank.bank_code,
+            account_number: personalDetails.account_number,
+            bank_name: bank.bank_name,
+            phone: phoneNumber,
+            email: personalDetails.email
+          }
 
-        message = `Please Input your bank account number`;
+          const user = await addEntity(User, userProfile);
+          message = `END User ${bankProfile.fullName} is Registered with La Turre Restuarante..`
+        } else message = `END Error in confirming bank account details, Please check your network and try again later.`;
         res.status(200).send(message);
 
       } else if (text === '2') {
@@ -204,7 +220,7 @@ const UserController = {
           const order = await addEntity(Order, body);
 
           // remember to add paystact to this operarion.
-
+          // const pay = await viaPaystack({ email: user.email, amount: body.amount, metadata: 'NGN' });
           message = `End Your Order has been made and is coming straight to your address`;
         } else message = `END Thanks for using our platform`;
         res.status(200).send(message);
