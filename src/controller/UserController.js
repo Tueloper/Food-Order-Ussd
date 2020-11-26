@@ -16,6 +16,9 @@ const {
   addEntity
 } = GeneralService;
 const {
+  paystackBankNamesAndCodes
+} = validData;
+const {
   verifyAccount,
   viaPaystack
 } = Payments;
@@ -37,17 +40,7 @@ const UserController = {
   async callUssd(req, res) {
     try {
     // Logic for 1 level message
-      let welcomeMsg,
-      personalDetails,
-      message,
-      endMessage,
-      user,
-      foodName,
-      price,
-      food,
-      bank,
-      bank_name
-      bank_code;
+      let welcomeMsg, personalDetails, message, endMessage, user, foodName, price, food, bank, bank_name, bank_code;
 
 
       welcomeMsg = `CON Hello and welcome to La Turre Restuarante.
@@ -57,14 +50,7 @@ const UserController = {
         1. Register An Account.
         2. Make Order.
       `;
-      personalDetails = {
-        bank_name: "",
-        account_number: "",
-        email: "",
-        phone: "",
-        address: "",
-        open: true
-      };
+
       const orderDetails = {};
       // If this is not still showing, we can try using (req.orderDetails or req.body)
       // to store order details of users information till the session has ended
@@ -77,37 +63,35 @@ const UserController = {
         sessionId, serviceCode, phoneNumber, text
       } = req.body;
       let textValue = text.split('*');
-      console.log(text, textValue, orderDetails, user, food, price);
+      // console.log(text, textValue, personalDetails, user, food, price);
+      console.log(textValue);
 
       if (text === '') {
 
         message = welcomeMsg
         res.status(200).send(message);
 
-      } else if (text === '1') {
+      } else if (text  === '1') {
 
-        message = `Please Input your email address`;
+        message = `CON Please Input your email address`;
         res.status(200).send(message);
 
       } else if (textValue[0] === '1' && textValue.length === 2) {
 
-        personalDetails.email = textValue[1];
         user = await findByKey(User, { email: textValue[1] });
         if (user) message = `END User ${user.fullName} have registered with our platform, Please proceed to make your order.`;
-        else message = `Please Input your home address`;
+        else message = `CON Please Input your home address`;
         res.status(200).send(message);
 
       } else if (textValue[0] === '1' && textValue.length === 3) {
 
-        personalDetails.address = textValue[2];
-        personalDetails.phone = phoneNumber;
-        message = `Please Input your bank account number`;
+        message = `CON Please Input your bank account number`;
         res.status(200).send(message);
 
       } else if (textValue[0] === '1' && textValue.length === 4) {
 
         // This is just for testing, i will still find a better way of making the presentation
-        message = `Please select your Bank
+        message = `CON Please select your Bank
           1. Access Bank
           2. Access Bank (Diamond)
           3. ALAT by WEMA
@@ -143,28 +127,30 @@ const UserController = {
           33. Wema Bank
           34. Zenith Bank
         `;
-        personalDetails.account_number = textValue[3];
         res.status(200).send(message);
 
       } else if (textValue[0] === '1' && textValue.length === 5) {
 
         const id = Number(textValue[4] - 1);
-        bank = validData[id];
-        personalDetails.bank_name = bank.bank_name;
-        personalDetails.bank_code = bank.bank_code;
-        const bankProfile = await verifyAccount({ account_number: personalDetails.account_number, bank_code: bank.bank_code });
+        bank = paystackBankNamesAndCodes[id];
+        const account_number = textValue[3];
+        bank_name = bank.bank_name;
+        bank_code = bank.bank_code;
+        const bankProfile = await verifyAccount({ account_number, bank_code });
         if (bankProfile) {
+          const fullName = bankProfile.account_name;
           const userProfile = {
-            full_name: bankProfile.account_name,
-            bank_code: bank.bank_code,
-            account_number: personalDetails.account_number,
-            bank_name: bank.bank_name,
+            fullName,
+            bank_code,
+            account_number,
+            bank_name,
             phone: phoneNumber,
-            email: personalDetails.email
+            email: textValue[1],
+            address: textValue[2]
           }
 
           const user = await addEntity(User, userProfile);
-          if (user) message = `END User ${bankProfile.fullName} is Registered with La Turre Restuarante..`
+          if (user) message = `END User ${fullName} is Registered with La Turre Restuarante..`
         } else message = `END Error in confirming bank account details, Please check your network and try again later.`;
         res.status(200).send(message);
 
@@ -177,12 +163,14 @@ const UserController = {
 
         user = await findByKey(User, { email: textValue[1] });
         if (!user) message = `END You haven't registered with our platform, please register and try again..`;
-        const username = user.fullName;
-        message = `CON Welcome ${username}, Please select your Order
-        1. Scambled Eggs
-        2. Fried Potatoes
-        3. Catalan Sausage
-        `;
+        else {
+          const username = user.fullName;
+          message = `CON Welcome ${username}, Please select your Order
+            1. Scambled Eggs
+            2. Fried Potatoes
+            3. Catalan Sausage
+            `;
+        }
 
         orderDetails.email = textValue[1];
         res.status(200).send(message);
@@ -233,6 +221,7 @@ const UserController = {
       }
 
     } catch (error) {
+      console.error(error);
       errorResponse(res, {});
     }
   },
