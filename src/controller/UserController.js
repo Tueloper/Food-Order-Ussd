@@ -40,7 +40,7 @@ const UserController = {
   async callUssd(req, res) {
     try {
     // Logic for 1 level message
-      let welcomeMsg, personalDetails, message, endMessage, user, foodName, price, food, bank, bank_name, bank_code;
+      let welcomeMsg, message, user, price, food, bank, bank_name, bank_code;
 
 
       welcomeMsg = `CON Hello and welcome to La Turre Restuarante.
@@ -63,8 +63,6 @@ const UserController = {
         sessionId, serviceCode, phoneNumber, text
       } = req.body;
       let textValue = text.split('*');
-      // console.log(text, textValue, personalDetails, user, food, price);
-      console.log(textValue);
 
       if (text === '') {
 
